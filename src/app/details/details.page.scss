@@ -1,0 +1,21 @@
+:host{display:block}
+
+.details-content{
+	padding:12px;
+	display:flex;
+	justify-content:center;
+	align-items:flex-start;
+}
+
+.wrap{
+  width:100%;
+  max-width:720px;
+}
+
+.muted{
+  color: rgba(0,0,0,0.5);
+}
+
+.actions{
+  margin-top:12px;
+}

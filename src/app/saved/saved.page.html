@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>📌 Saved Destinations</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <ion-card *ngIf="favorites.length === 0">
+      <ion-card-header>
+        <ion-card-title>No saved destinations</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Tap the heart on a destination to save it here.
+      </ion-card-content>
+    </ion-card>
+
+    <div class="saved-grid">
+      <ion-card *ngFor="let f of favorites">
+        <ion-card-content>
+          <div class="saved-row">
+            <img *ngIf="f.img" [src]="f.img" alt="{{ f.name }}" />
+            <div class="saved-info">
+              <h3>{{ f.name }}</h3>
+              <div class="meta" *ngIf="f.categories">{{ f.categories.join(' • ') }}</div>
+            </div>
+            <ion-button color="light" (click)="removeFavorite(f.name)">
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

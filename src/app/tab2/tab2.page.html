@@ -1,0 +1,93 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Tab 2
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Tab 2</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <app-explore-container name="Tab 2 page"></app-explore-container>
+
+  <ion-content class="calculator-wrap">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-md="7" size-sm="12">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>
+                <ion-icon name="calculator-outline" slot="start"></ion-icon>
+                Travel Budget Calculator
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-list>
+                <ion-item>
+                  <ion-label position="stacked">Travel days</ion-label>
+                  <ion-input type="number" [(ngModel)]="travelDays" min="1" inputmode="numeric" placeholder="e.g. 5"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="stacked">Expected hotel cost (per day)</ion-label>
+                  <ion-input type="number" [(ngModel)]="hotelCost" inputmode="numeric" placeholder="e.g. 2500"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="stacked">Food cost (per day)</ion-label>
+                  <ion-input type="number" [(ngModel)]="foodCost" inputmode="numeric" placeholder="e.g. 800"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="stacked">Travel cost (total: flights, trains)</ion-label>
+                  <ion-input type="number" [(ngModel)]="travelCost" inputmode="numeric" placeholder="e.g. 12000"></ion-input>
+                </ion-item>
+              </ion-list>
+
+              <div class="small-hint">Tip: enter estimated per-day values and a one-time travel cost.</div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size-md="5" size-sm="12">
+          <ion-card class="summary-card">
+            <ion-card-header>
+              <ion-card-title>Summary</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <div class="summary-row">
+                <div class="label"><ion-icon name="bed-outline"></ion-icon> Hotel</div>
+                <div class="value">{{ hotelTotalFormatted }}</div>
+              </div>
+
+              <div class="summary-row">
+                <div class="label"><ion-icon name="restaurant-outline"></ion-icon> Food</div>
+                <div class="value">{{ foodTotalFormatted }}</div>
+              </div>
+
+              <div class="summary-row">
+                <div class="label"><ion-icon name="airplane-outline"></ion-icon> Travel</div>
+                <div class="value">{{ formatCurrency(travelCostNumber) }}</div>
+              </div>
+
+              <hr />
+
+              <div class="total-row">
+                <div class="total-label">Estimated Trip Budget</div>
+                <div class="total-value">{{ estimatedBudgetFormatted }}</div>
+              </div>
+
+              <div class="actions">
+                <ion-button expand="block" color="primary" (click)="reset()">Reset</ion-button>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+</ion-content>

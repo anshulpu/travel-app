@@ -1,0 +1,8 @@
+:host{display:block}
+.container{padding:12px}
+.saved-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.saved-row{display:flex;align-items:center;gap:10px}
+.saved-row img{width:84px;height:64px;object-fit:cover;border-radius:8px}
+.saved-info h3{margin:0;font-size:16px}
+.meta{font-size:12px;color:rgba(0,0,0,0.6)}
+@media (min-width:768px){.saved-grid{grid-template-columns:repeat(3,1fr)}}

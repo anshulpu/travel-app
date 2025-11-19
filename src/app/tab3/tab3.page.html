@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Tab 3
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large"></ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <app-explore-container name=""></app-explore-container>
+  <div class="map-section">
+    <div class="map-frame">
+      <iframe *ngIf="embedUrl" [src]="embedUrl" frameborder="0" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="map-cta" style="padding:12px">
+      <ion-button expand="block" color="primary" (click)="openMap()">
+        <ion-icon slot="start" name="map"></ion-icon>
+        View on Map
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

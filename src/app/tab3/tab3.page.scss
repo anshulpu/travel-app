@@ -1,0 +1,26 @@
+:host {
+	display: block;
+}
+
+.map-section {
+	padding: 12px;
+}
+.map-frame {
+	width: 100%;
+	aspect-ratio: 16/9;
+	overflow: hidden;
+	border-radius: 10px;
+	box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+.map-frame iframe {
+	width: 100%;
+	height: 100%;
+	border: 0;
+}
+
+.map-cta { margin-top: 12px; }
+
+@media (max-width: 599px) {
+	.map-frame { aspect-ratio: 4/3; }
+}
+

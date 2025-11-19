@@ -1,0 +1,175 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Tab 1
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Tab 1</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="container">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-md="6">
+          <ion-card class="card-accent">
+            <div class="travel-image-wrap">
+              <ion-img src="assets/travel-banner.svg" alt="Travel banner"></ion-img>
+              <div class="travel-image-overlay">
+                <div class="overlay-text">
+                  <div class="overlay-title">Explore the world</div>
+                  <div class="overlay-sub">Find your next adventure</div>
+                </div>
+              </div>
+            </div>
+            <ion-card-header>
+              <ion-card-title>Travel App</ion-card-title>
+              <ion-card-subtitle>Quick links</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <div class="nav-grid">
+                <button class="nav-tile" (click)="goToAbout()" aria-label="About">
+                  <ion-icon name="information-circle" class="nav-icon"></ion-icon>
+                  <div class="nav-title">About</div>
+                  <div class="nav-sub">Learn more about the app</div>
+                </button>
+
+                <button class="nav-tile" (click)="goToDetails()" aria-label="Details">
+                  <ion-icon name="document-text" class="nav-icon"></ion-icon>
+                  <div class="nav-title">Details</div>
+                  <div class="nav-sub">Open sample details</div>
+                </button>
+              </div>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Destinations</ion-card-title>
+              <ion-card-subtitle>Tap trash to remove • Tap card for more</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <div class="search-area">
+                <ion-searchbar show-cancel-button='never' debounce="300" placeholder="Search destinations" [(ngModel)]="searchQuery"></ion-searchbar>
+                <div class="filter-row">
+                  <button class="filter-btn" [class.active]="!selectedCategory" (click)="selectCategory('')">All</button>
+                  <button *ngFor="let c of categoriesList" class="filter-btn" [class.active]="selectedCategory===c" (click)="selectCategory(c)">{{ c }}</button>
+                </div>
+              </div>
+              <div class="dest-grid">
+                <div *ngIf="filteredItems.length === 0 && searchQuery" class="no-results">No destinations match "{{ searchQuery }}"</div>
+                <div class="dest-card" *ngFor="let it of filteredItems; let i = index">
+                  <div class="thumb" (click)="goToDetailsItem(it)">
+                    <ion-img [src]="it.img" alt="{{ it.name }}"></ion-img>
+                    <button class="thumb-fav" (click)="toggleFavoriteItem(it, i); $event.stopPropagation()" aria-label="Favorite" [attr.aria-pressed]="it.isFav" [class.fav-anim]="it.anim">
+                      <ion-icon [name]="it.isFav ? 'heart' : 'heart-outline'"></ion-icon>
+                    </button>
+                    <button class="thumb-delete" (click)="deleteItem(i); $event.stopPropagation()" aria-label="Delete">
+                      <ion-icon name="trash"></ion-icon>
+                    </button>
+                    <div class="thumb-title">{{ it.name }}</div>
+                  </div>
+                </div>
+              </div>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Favorites</ion-card-title>
+              <ion-card-subtitle>{{ favoritesCount }} saved</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content class="fav-row">
+              <div class="fav-list">
+                <span *ngIf="favoritesCount === 0" class="muted">No favorites yet — tap the heart on a destination to save it.</span>
+                <div class="fav-grid">
+                  <ng-container *ngFor="let f of items">
+                    <button *ngIf="f.isFav" class="fav-pill" (click)="toggleFavoriteItem(f, items.indexOf(f)); $event.stopPropagation()" aria-pressed="true" aria-label="Toggle favorite">
+                      <img class="fav-avatar" [src]="f.img" alt="{{ f.name }}" />
+                      <span class="fav-name">{{ f.name }}</span>
+                      <ion-icon name="heart" class="fav-heart"></ion-icon>
+                    </button>
+                  </ng-container>
+                </div>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size="12" size-md="6">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Actions & Storage</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-button expand="block" (click)="showToast()">Show Toast</ion-button>
+              <ion-button expand="block" (click)="openActionSheet()">Open Action Sheet</ion-button>
+              <ion-button expand="block" (click)="saveToLocalStorage()" color="tertiary">Save to Storage</ion-button>
+              <ion-button expand="block" (click)="retrieveFromLocalStorage()">Retrieve from Storage</ion-button>
+              <ion-button expand="block" (click)="openProfileModal()">Open Profile Modal</ion-button>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Users & Posts</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <div class="list-grid">
+                <div>
+                  <h4>Users</h4>
+                  <ion-list>
+                    <ion-item *ngFor="let u of users">
+                      <ion-label>{{ u.name }}</ion-label>
+                    </ion-item>
+                  </ion-list>
+                </div>
+                <div>
+                  <h4>Posts (first 5)</h4>
+                  <ion-list>
+                    <ion-item *ngFor="let p of posts">
+                      <ion-label>{{ p.title }}</ion-label>
+                    </ion-item>
+                  </ion-list>
+                </div>
+              </div>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Contact Form</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <ion-item>
+                  <ion-label position="stacked">Name</ion-label>
+                  <ion-input formControlName="name"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="stacked">Email</ion-label>
+                  <ion-input formControlName="email" type="email"></ion-input>
+                </ion-item>
+                <ion-button type="submit" expand="block" [disabled]="form.invalid">Submit</ion-button>
+              </form>
+
+              <div *ngIf="submittedValues" class="submitted">
+                <strong>Submitted:</strong>
+                <div>Name: {{ submittedValues.name }}</div>
+                <div>Email: {{ submittedValues.email }}</div>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="details-content">
+  <div class="wrap">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Details</ion-card-title>
+        <ion-card-subtitle *ngIf="id">ID: {{ id }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p *ngIf="name">Received name: <strong>{{ name }}</strong></p>
+        <p *ngIf="!name" class="muted">No data received.</p>
+        <div class="actions">
+          <ion-button fill="outline" color="primary" (click)="goBack()">
+            <ion-icon slot="start" name="arrow-back"></ion-icon>
+            Back
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
